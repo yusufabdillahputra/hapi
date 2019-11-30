@@ -9,6 +9,7 @@ module.exports = {
         if (error) reject(error)
         resolve(result.rows)
       })
+      db.end()
     }))
   }
 
