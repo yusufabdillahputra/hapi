@@ -1,23 +1,30 @@
 const Router = require('express').Router()
+const multer = require('multer')
+const upload = multer()
+
 const {
   createData,
   readAll,
-  readRoot,
-  readEngineer,
-  readPartner,
-  readById,
-  readByName,
+  readAllRoot,
+  readAllEngineer,
+  readAllPartner,
   updateById,
-  deleteDataById
-} = require(`../controllers/users`)
+  updateByIdRoot,
+  updateByIdEngineer,
+  updateByIdPartner,
+  deleteById
+} = require('../controllers/users')
 
 Router
-  .get(`/`, readAll)
-  // .post(`/`, createData)
-  // .get(`/id/:id_users`, readById)
-  // .get(`/name/:name_users`, readByName)
-  // .get(`/company/:name_company`, readByCompany)
-  // .put(`/:id_users`, updateById)
-  // .delete(`/id/:id_users`, deleteDataById)
+  .get('/', readAll)
+  .get('/root', readAllRoot)
+  .get('/engineer', readAllEngineer)
+  .get('/partner', readAllPartner)
+  .post(`/`, createData)
+  .put('/id/:id_users', updateById)
+  .put('/root/id/:id_users', upload.single('photo_root'), updateByIdRoot)
+  .put('/engineer/id/:id_users', upload.single('photo_engineer'), updateByIdEngineer)
+  .put('/partner/id/:id_users', upload.single('photo_partner'), updateByIdPartner)
+  .delete('/id/:id_users', deleteById)
 
 module.exports = Router
