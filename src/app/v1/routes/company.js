@@ -3,6 +3,7 @@ const Router = require('express').Router()
 const {
   createData,
   readAll,
+  readById,
   updateById,
   updatePhoto,
   verifyById,
@@ -12,6 +13,7 @@ const {
 
 Router
   .get('/', readAll)
+  .get('/:id_company', readById)
   .post(`/`, createData)
   .put('/id/:id_company', updateById)
   .put('/verify/:id_company', verifyById)

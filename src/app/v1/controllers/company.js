@@ -37,6 +37,15 @@ module.exports = {
       response(res, 500, 500, error)
     }
   },
+  readById: async (req, res) => {
+    try {
+      const payload = await companyModel.readById(req.params.id_company)
+      response(res, 200, 200, payload)
+    } catch (error) {
+      console.log(error)
+      response(res, 500, 500, error)
+    }
+  },
   updateById: async (req, res) => {
     try {
       const payload = await companyModel.updateById(req)
