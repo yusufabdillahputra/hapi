@@ -31,7 +31,7 @@ module.exports = {
   },
   readAll: async (req, res) => {
     try {
-      const payload = await usersModel.readAll()
+      const payload = await usersModel.readAll(req)
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)
@@ -40,7 +40,7 @@ module.exports = {
   },
   readAllRoot: async (req, res) => {
     try {
-      const payload = await usersModel.readAllRoot()
+      const payload = await usersModel.readAllRoot(req)
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)
@@ -49,7 +49,7 @@ module.exports = {
   },
   readAllEngineer: async (req, res) => {
     try {
-      const payload = await usersModel.readAllEngineer()
+      const payload = await usersModel.readAllEngineer(req)
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)
@@ -58,7 +58,7 @@ module.exports = {
   },
   readAllPartner: async (req, res) => {
     try {
-      const payload = await usersModel.readAllPartner()
+      const payload = await usersModel.readAllPartner(req)
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)
