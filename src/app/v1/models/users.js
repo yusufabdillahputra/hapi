@@ -77,7 +77,7 @@ module.exports = {
       return new Promise((resolve, reject) => {
         const prepare = {
           name: 'readByIdPartner',
-          text: `SELECT * FROM ${view.root} WHERE ${primaryKey} = $1 LIMIT 1`,
+          text: `SELECT * FROM ${view.partner} WHERE ${primaryKey} = $1 LIMIT 1`,
           values: [
             id
           ]
@@ -117,7 +117,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'readAllPartner',
-        text: `SELECT * FROM ${view.partner}`
+        text: `SELECT * FROM ${view.partner} WHERE name_users LIKE  '%Fe%'`
       }
       query(prepare, resolve, reject)
     })
@@ -148,7 +148,27 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
-  updateByIdRoot: (req, fileName = null) => {
+  updatePhotoRoot: (req, fileName) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'updatePhotoRoot',
+        text: `UPDATE ${table.root} 
+                SET photo_root = $1, 
+                    updated_by = $2, 
+                    updated_at = $3 
+                WHERE ${primaryKey} = $4
+                RETURNING *`,
+        values: [
+          fileName,
+          req.body.updated_by,
+          dateTimeNow(),
+          req.params[primaryKey]
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
+  updateByIdRoot: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'updateByIdRoot',
@@ -158,11 +178,10 @@ module.exports = {
                     address_root = $3, 
                     city_root = $4, 
                     province_root = $5, 
-                    nation_root = $6, 
-                    photo_root = $7, 
-                    updated_by = $8, 
-                    updated_at = $9 
-                WHERE ${primaryKey} = $10
+                    nation_root = $6,
+                    updated_by = $7, 
+                    updated_at = $8 
+                WHERE ${primaryKey} = $9
                 RETURNING *`,
         values: [
           req.body.description_root,
@@ -171,8 +190,7 @@ module.exports = {
           req.body.city_root,
           req.body.province_root,
           req.body.nation_root,
-          fileName,
-          field.updated_by,
+          req.body.updated_by,
           dateTimeNow(),
           req.params[primaryKey]
         ]
@@ -180,7 +198,27 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
-  updateByIdEngineer: (req, field, fileName = null) => {
+  updatePhotoEngineer: (req, fileName) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'updatePhotoEngineer',
+        text: `UPDATE ${table.engineer} 
+                SET photo_engineer = $1, 
+                    updated_by = $2, 
+                    updated_at = $3 
+                WHERE ${primaryKey} = $4
+                RETURNING *`,
+        values: [
+          fileName,
+          req.body.updated_by,
+          dateTimeNow(),
+          req.params[primaryKey]
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
+  updateByIdEngineer: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'updateByIdEngineer',
@@ -188,31 +226,29 @@ module.exports = {
                 SET description_engineer = $1,
                     focus_engineer = $2,
                     dbo_engineer = $3,
-                    photo_engineer = $4,
-                    github_engineer = $5,
-                    linkedin_engineer = $6,
-                    portofolio_engineer = $7,
-                    address_engineer = $8,
-                    city_engineer = $9,
-                    province_engineer = $10,
-                    nation_engineer = $11, 
-                    updated_by = $12, 
-                    updated_at = $13 
-                WHERE ${primaryKey} = $14
+                    github_engineer = $4,
+                    linkedin_engineer = $5,
+                    portofolio_engineer = $6,
+                    address_engineer = $7,
+                    city_engineer = $8,
+                    province_engineer = $9,
+                    nation_engineer = $10, 
+                    updated_by = $11, 
+                    updated_at = $12 
+                WHERE ${primaryKey} = $13
                 RETURNING *`,
         values: [
-          field.description_engineer,
-          field.focus_engineer,
-          field.dbo_engineer,
-          fileName,
-          field.github_engineer,
-          field.linkedin_engineer,
-          field.portofolio_engineer,
-          field.address_engineer,
-          field.city_engineer,
-          field.province_engineer,
-          field.nation_engineer,
-          field.updated_by,
+          req.body.description_engineer,
+          req.body.focus_engineer,
+          req.body.dbo_engineer,
+          req.body.github_engineer,
+          req.body.linkedin_engineer,
+          req.body.portofolio_engineer,
+          req.body.address_engineer,
+          req.body.city_engineer,
+          req.body.province_engineer,
+          req.body.nation_engineer,
+          req.body.updated_by,
           dateTimeNow(),
           req.params[primaryKey],
         ]
@@ -220,31 +256,49 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
-  updateByIdPartner: (req, field, fileName = null) => {
+  updatePhotoPartner: (req, fileName) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'updatePhotoPartner',
+        text: `UPDATE ${table.partner} 
+                SET photo_partner = $1, 
+                    updated_by = $2, 
+                    updated_at = $3 
+                WHERE ${primaryKey} = $4
+                RETURNING *`,
+        values: [
+          fileName,
+          req.body.updated_by,
+          dateTimeNow(),
+          req.params[primaryKey]
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
+  updateByIdPartner: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'updateByIdPartner',
         text: `UPDATE ${table.partner} 
                 SET description_partner = $1, 
-                    photo_partner = $2, 
-                    position_partner = $3, 
-                    address_partner = $4, 
-                    province_partner = $5, 
-                    city_partner = $6, 
-                    nation_partner = $7, 
-                    updated_by = $8, 
-                    updated_at = $9 
-                WHERE ${primaryKey} = $10
+                    position_partner = $2, 
+                    address_partner = $3, 
+                    province_partner = $4, 
+                    city_partner = $5, 
+                    nation_partner = $6, 
+                    updated_by = $7, 
+                    updated_at = $8 
+                WHERE ${primaryKey} = $9
                 RETURNING *`,
         values: [
-          field.description_partner,
-          fileName,
-          field.position_partner,
-          field.address_partner,
-          field.province_partner,
-          field.city_partner,
-          field.nation_partner,
-          field.updated_by,
+          req.body.description_partner,
+          req.body.position_partner,
+          req.body.address_partner,
+          req.body.province_partner,
+          req.body.city_partner,
+          req.body.nation_partner,
+          req.body.updated_by,
           dateTimeNow(),
           req.params[primaryKey],
         ]

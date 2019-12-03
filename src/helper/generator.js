@@ -102,9 +102,6 @@ module.exports = {
       result += characters.charAt(Math.floor(Math.random() * charactersLength))
     }
     return result;
-  },
-  getFilesExtension: (file) => {
-    return `.`+file.split('/')[1]
   }
 
 }

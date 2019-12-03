@@ -1,6 +1,4 @@
 const Router = require('express').Router()
-const multer = require('multer')
-const upload = multer()
 
 const {
   createData,
@@ -10,8 +8,11 @@ const {
   readAllPartner,
   updateById,
   updateByIdRoot,
+  updatePhotoRoot,
   updateByIdEngineer,
+  updatePhotoEngineer,
   updateByIdPartner,
+  updatePhotoPartner,
   deleteById
 } = require('../controllers/users')
 
@@ -22,9 +23,12 @@ Router
   .get('/partner', readAllPartner)
   .post(`/`, createData)
   .put('/id/:id_users', updateById)
-  .put('/root/id/:id_users', upload.single('photo_root'), updateByIdRoot)
-  .put('/engineer/id/:id_users', upload.single('photo_engineer'), updateByIdEngineer)
-  .put('/partner/id/:id_users', upload.single('photo_partner'), updateByIdPartner)
+  .put('/root/id/:id_users', updateByIdRoot)
+  .put('/root/photo/:id_users', updatePhotoRoot)
+  .put('/engineer/id/:id_users', updateByIdEngineer)
+  .put('/engineer/photo/:id_users', updatePhotoEngineer)
+  .put('/partner/id/:id_users', updateByIdPartner)
+  .put('/partner/photo/:id_users', updatePhotoPartner)
   .delete('/id/:id_users', deleteById)
 
 module.exports = Router
