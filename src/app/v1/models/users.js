@@ -6,20 +6,69 @@ const primaryKey = 'id_users'
 
 module.exports = {
 
-  createData: (req) => {
+  readRememberToken: (id) => {
     return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'readRememberToken_users',
+        text: `SELECT remember_token FROM hiringus.db.tbl_users WHERE ${primaryKey} = $1`,
+        values : [
+          id
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
+  createRememberToken: (token, id) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'createRememberToken_users',
+        text: `UPDATE hiringus.db.tbl_users SET remember_token = $1 WHERE ${primaryKey} = $2 RETURNING *`,
+        values: [
+          token,
+          id
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
+  destroyRememberToken: (id) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'destroyRememberToken',
+        text: `UPDATE hiringus.db.tbl_users SET remember_token = NULL WHERE ${primaryKey} = $1 RETURNING *`,
+        values: [
+          id
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
+  createData: (req) => {
+    return new Promise(async (resolve, reject) => {
+      const password = await hash(req.body.password_users)
       const prepare = {
         name: 'createData_users',
         text: `INSERT INTO hiringus.db.tbl_users
                    (name_users, username_users, password_users, email_users, role_users)
-               VALUES ($1, $2, $3, $4, $5)
+               VALUES ($1, $2, '${password}', $3, $4)
                RETURNING *`,
         values: [
           req.body.name_users,
           req.body.username_users,
-          hash(req.body.password_users),
           req.body.email_users,
           req.body.role_users
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
+  readByLogin: (req) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'readByLogin_users',
+        text: `SELECT ${primaryKey}, username_users, password_users, name_users, remember_token, role_users FROM hiringus.db.tbl_users WHERE username_users = $1 LIMIT 1`,
+        values: [
+          req.body.username_users
         ]
       }
       query(prepare, resolve, reject)

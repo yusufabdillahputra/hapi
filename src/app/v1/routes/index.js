@@ -1,6 +1,7 @@
 const Router = require('express').Router()
 
 const home = require('./home')
+const auth = require('./auth')
 const users = require('./users')
 const company = require('./company')
 const project = require('./project')
@@ -8,6 +9,7 @@ const skill = require('./skill')
 
 Router
   .use('/', home)
+  .use('/auth', auth)
   .use('/users', users)
   .use('/company', company)
   .use('/project', project)

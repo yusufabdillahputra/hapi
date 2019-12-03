@@ -1,4 +1,5 @@
 const Router = require('express').Router()
+const { verifyToken } = require('../middlewares/authentication')
 
 const {
   createData,
@@ -14,15 +15,15 @@ const {
 } = require('../controllers/project')
 
 Router
-  .get('/', readAll)
-  .get('/id/:id_project', readById)
-  .post(`/`, createData)
-  .put('/id/:id_project', updateById)
-  .delete('/id/:id_project', deleteById)
+  .get('/', verifyToken, readAll)
+  .get('/id/:id_project', verifyToken, readById)
+  .post(`/`, verifyToken, createData)
+  .put('/id/:id_project', verifyToken, updateById)
+  .delete('/id/:id_project', verifyToken, deleteById)
   .get('/engineer', readAllProjectEngineer)
   .get('/engineer/id/:id_project_engineer', readByIdProjectEngineer)
-  .post(`/engineer`, createProjectEngineer)
-  .put('/engineer/id/:id_project_engineer', updateByIdProjectEngineer)
-  .delete('/engineer/id/:id_project_engineer', deleteProjectEngineer)
+  .post(`/engineer`, verifyToken, createProjectEngineer)
+  .put('/engineer/id/:id_project_engineer', verifyToken, updateByIdProjectEngineer)
+  .delete('/engineer/id/:id_project_engineer', verifyToken, deleteProjectEngineer)
 
 module.exports = Router
