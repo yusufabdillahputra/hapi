@@ -1,5 +1,5 @@
 const sprintf = require('sprintf-js').sprintf
-const { query, pool } = require('../../../helper/db')
+const { query } = require('../../../helper/db')
 const { hash } = require('../../../helper/bcrypt')
 const { dateTimeNow } = require('../../../helper/date')
 const primaryKey = 'id_users'
@@ -90,8 +90,8 @@ module.exports = {
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.tbl_users
-                             WHERE %(fieldname) s LIKE $1
-                             ORDER BY $2 %(sort) s
+                             WHERE %(fieldname)s LIKE $1
+                             ORDER BY $2 %(sort)s
                                  LIMIT $3
                                  OFFSET $4`, property)
         const prepare = {
