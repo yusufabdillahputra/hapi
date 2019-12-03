@@ -8,7 +8,7 @@ module.exports = {
   createData: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'createData',
+        name: 'createData_company',
         text: `INSERT INTO hiringus.db.tbl_company
                    (name_company, created_by)
                VALUES ($1, $2)
@@ -24,7 +24,7 @@ module.exports = {
   readById: (id) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'readById',
+        name: 'readById_company',
         text: `SELECT * FROM hiringus.db.tbl_company WHERE ${primaryKey} = $1 LIMIT 1`,
         values: [
           id
@@ -53,7 +53,7 @@ module.exports = {
                                  LIMIT $3
                                  OFFSET $4`, property)
         const prepare = {
-          name: 'readAllByQuery',
+          name: 'readAllByQuery_company',
           text: sql,
           values: [
             value.fieldvalue,
@@ -65,7 +65,7 @@ module.exports = {
         query(prepare, resolve, reject)
       } else {
         const prepare = {
-          name: 'readAll',
+          name: 'readAll_company',
           text: `SELECT * FROM hiringus.db.tbl_company`
         }
         query(prepare, resolve, reject)
@@ -75,7 +75,7 @@ module.exports = {
   updatePhoto: (req, fileName) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updatePhoto',
+        name: 'updatePhoto_company',
         text: `UPDATE hiringus.db.tbl_company
                 SET photo_company = $1, 
                     updated_by = $2, 
@@ -95,7 +95,7 @@ module.exports = {
   updateById: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updateById',
+        name: 'updateById_company',
         text: `UPDATE hiringus.db.tbl_company
                 SET name_company = $1,
                     address_company = $2, 
@@ -107,11 +107,11 @@ module.exports = {
                 WHERE ${primaryKey} = $8
                 RETURNING *`,
         values: [
-          req.body.name_company,
-          req.body.address_company,
-          req.body.city_company,
-          req.body.province_company,
-          req.body.nation_company,
+          req.body.name_company || null,
+          req.body.address_company || null,
+          req.body.city_company || null,
+          req.body.province_company || null,
+          req.body.nation_company || null,
           req.body.updated_by,
           dateTimeNow(),
           req.params[primaryKey]
@@ -123,7 +123,7 @@ module.exports = {
   verifyById: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'verifyById',
+        name: 'verifyById_company',
         text: `UPDATE hiringus.db.tbl_company
                 SET verify_company = $1,
                     updated_by = $2, 
@@ -140,10 +140,30 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
+  unverifyById: (req) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'verifyById_company',
+        text: `UPDATE hiringus.db.tbl_company
+                SET verify_company = $1,
+                    updated_by = $2, 
+                    updated_at = $3 
+                WHERE ${primaryKey} = $4
+                RETURNING *`,
+        values: [
+          false,
+          req.body.updated_by,
+          dateTimeNow(),
+          req.params[primaryKey]
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
   deleteById: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'deleteById',
+        name: 'deleteById_company',
         text: `DELETE FROM hiringus.db.tbl_company WHERE ${primaryKey} = $1`,
         values: [
           req.params[primaryKey]

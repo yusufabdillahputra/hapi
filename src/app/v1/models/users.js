@@ -9,7 +9,7 @@ module.exports = {
   createData: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'createData',
+        name: 'createData_users',
         text: `INSERT INTO hiringus.db.tbl_users
                    (name_users, username_users, password_users, email_users, role_users)
                VALUES ($1, $2, $3, $4, $5)
@@ -28,7 +28,7 @@ module.exports = {
   readRole: (id) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'readRole',
+        name: 'readRole_users',
         text: `SELECT ${primaryKey}, role_users FROM hiringus.db.tbl_users WHERE ${primaryKey} = $1 LIMIT 1`,
         values: [
           id
@@ -41,7 +41,7 @@ module.exports = {
     if (role === 1) {
       return new Promise((resolve, reject) => {
         const prepare = {
-          name: 'readByIdRoot',
+          name: 'readByIdRoot_users',
           text: `SELECT * FROM hiringus.db.vw_root WHERE ${primaryKey} = $1 LIMIT 1`,
           values: [
             id
@@ -53,7 +53,7 @@ module.exports = {
     if (role === 2) {
       return new Promise((resolve, reject) => {
         const prepare = {
-          name: 'readByIdEngineer',
+          name: 'readByIdEngineer_users',
           text: `SELECT * FROM hiringus.db.vw_engineer WHERE ${primaryKey} = $1 LIMIT 1`,
           values: [
             id
@@ -65,7 +65,7 @@ module.exports = {
     if (role === 3) {
       return new Promise((resolve, reject) => {
         const prepare = {
-          name: 'readByIdPartner',
+          name: 'readByIdPartner_users',
           text: `SELECT * FROM hiringus.db.vw_partner WHERE ${primaryKey} = $1 LIMIT 1`,
           values: [
             id
@@ -95,7 +95,7 @@ module.exports = {
                                  LIMIT $3
                                  OFFSET $4`, property)
         const prepare = {
-          name: 'readAllByQuery',
+          name: 'readAllByQuery_users',
           text: sql,
           values: [
             value.fieldvalue,
@@ -107,7 +107,7 @@ module.exports = {
         query(prepare, resolve, reject)
       } else {
         const prepare = {
-          name: 'readAll',
+          name: 'readAll_users',
           text: `SELECT *
                  FROM hiringus.db.tbl_users`
         }
@@ -134,7 +134,7 @@ module.exports = {
                              ORDER BY $2 %(sort)s 
                              LIMIT $3 OFFSET $4`, property)
         const prepare = {
-          name: 'readAllRootByQuery',
+          name: 'readAllRootByQuery_users',
           text: sql,
           values: [
             value.fieldvalue,
@@ -146,7 +146,7 @@ module.exports = {
         query(prepare, resolve, reject)
       } else {
         const prepare = {
-          name: 'readAllRoot',
+          name: 'readAllRoot_users',
           text: `SELECT * FROM hiringus.db.vw_root`
         }
         query(prepare, resolve, reject)
@@ -172,7 +172,7 @@ module.exports = {
                              ORDER BY $2 %(sort)s 
                              LIMIT $3 OFFSET $4`, property)
         const prepare = {
-          name: 'readAllEngineerByQuery',
+          name: 'readAllEngineerByQuery_users',
           text: sql,
           values: [
             value.fieldvalue,
@@ -185,7 +185,7 @@ module.exports = {
       }
       else {
         const prepare = {
-          name: 'readAllEngineer',
+          name: 'readAllEngineer_users',
           text: `SELECT * FROM hiringus.db.tbl_engineer`
         }
         query(prepare, resolve, reject)
@@ -211,7 +211,7 @@ module.exports = {
                              ORDER BY $2 %(sort)s 
                              LIMIT $3 OFFSET $4`, property)
         const prepare = {
-          name: 'readAllPartnerByQuery',
+          name: 'readAllPartnerByQuery_users',
           text: sql,
           values: [
             value.fieldvalue,
@@ -224,7 +224,7 @@ module.exports = {
       }
       else {
         const prepare = {
-          name: 'readAllPartner',
+          name: 'readAllPartner_users',
           text: `SELECT * FROM hiringus.db.vw_partner`
         }
         query(prepare, resolve, reject)
@@ -234,7 +234,7 @@ module.exports = {
   updateById: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updateById',
+        name: 'updateById_users',
         text: `UPDATE hiringus.db.tbl_users
                 SET name_users = $1, 
                     username_users = $2, 
@@ -247,7 +247,7 @@ module.exports = {
         values: [
           req.body.name_users,
           req.body.username_users,
-          req.body.telp_users,
+          req.body.telp_users || null,
           req.body.email_users,
           req.body.updated_by,
           dateTimeNow(),
@@ -260,7 +260,7 @@ module.exports = {
   updatePhotoRoot: (req, fileName) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updatePhotoRoot',
+        name: 'updatePhotoRoot_users',
         text: `UPDATE hiringus.db.tbl_root 
                 SET photo_root = $1, 
                     updated_by = $2, 
@@ -280,7 +280,7 @@ module.exports = {
   updateByIdRoot: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updateByIdRoot',
+        name: 'updateByIdRoot_users',
         text: `UPDATE hiringus.db.tbl_root
                 SET description_root = $1, 
                     position_root = $2, 
@@ -293,12 +293,12 @@ module.exports = {
                 WHERE ${primaryKey} = $9
                 RETURNING *`,
         values: [
-          req.body.description_root,
-          req.body.position_root,
-          req.body.address_root,
-          req.body.city_root,
-          req.body.province_root,
-          req.body.nation_root,
+          req.body.description_root || null,
+          req.body.position_root || null,
+          req.body.address_root || null,
+          req.body.city_root || null,
+          req.body.province_root || null,
+          req.body.nation_root || null,
           req.body.updated_by,
           dateTimeNow(),
           req.params[primaryKey]
@@ -310,7 +310,7 @@ module.exports = {
   updatePhotoEngineer: (req, fileName) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updatePhotoEngineer',
+        name: 'updatePhotoEngineer_users',
         text: `UPDATE hiringus.db.tbl_engineer 
                 SET photo_engineer = $1, 
                     updated_by = $2, 
@@ -330,7 +330,7 @@ module.exports = {
   updateByIdEngineer: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updateByIdEngineer',
+        name: 'updateByIdEngineer_users',
         text: `UPDATE hiringus.db.tbl_engineer 
                 SET description_engineer = $1,
                     focus_engineer = $2,
@@ -347,16 +347,16 @@ module.exports = {
                 WHERE ${primaryKey} = $13
                 RETURNING *`,
         values: [
-          req.body.description_engineer,
-          req.body.focus_engineer,
-          req.body.dbo_engineer,
-          req.body.github_engineer,
-          req.body.linkedin_engineer,
-          req.body.portofolio_engineer,
-          req.body.address_engineer,
-          req.body.city_engineer,
-          req.body.province_engineer,
-          req.body.nation_engineer,
+          req.body.description_engineer || null,
+          req.body.focus_engineer || null,
+          req.body.dbo_engineer || null,
+          req.body.github_engineer || null,
+          req.body.linkedin_engineer || null,
+          req.body.portofolio_engineer || null,
+          req.body.address_engineer || null,
+          req.body.city_engineer || null,
+          req.body.province_engineer || null,
+          req.body.nation_engineer || null,
           req.body.updated_by,
           dateTimeNow(),
           req.params[primaryKey],
@@ -368,7 +368,7 @@ module.exports = {
   updatePhotoPartner: (req, fileName) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updatePhotoPartner',
+        name: 'updatePhotoPartner_users',
         text: `UPDATE hiringus.db.tbl_partner 
                 SET photo_partner = $1, 
                     updated_by = $2, 
@@ -388,7 +388,7 @@ module.exports = {
   updateByIdPartner: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'updateByIdPartner',
+        name: 'updateByIdPartner_users',
         text: `UPDATE hiringus.db.tbl_partner 
                 SET description_partner = $1, 
                     position_partner = $2, 
@@ -401,12 +401,12 @@ module.exports = {
                 WHERE ${primaryKey} = $9
                 RETURNING *`,
         values: [
-          req.body.description_partner,
-          req.body.position_partner,
-          req.body.address_partner,
-          req.body.province_partner,
-          req.body.city_partner,
-          req.body.nation_partner,
+          req.body.description_partner || null,
+          req.body.position_partner || null,
+          req.body.address_partner || null,
+          req.body.province_partner || null,
+          req.body.city_partner || null,
+          req.body.nation_partner || null,
           req.body.updated_by,
           dateTimeNow(),
           req.params[primaryKey],
@@ -418,7 +418,7 @@ module.exports = {
   deleteById: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
-        name: 'deleteById',
+        name: 'deleteById_users',
         text: `DELETE FROM hiringus.db.tbl_users WHERE ${primaryKey} = $1`,
         values: [
           req.params[primaryKey]
