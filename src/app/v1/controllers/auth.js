@@ -26,12 +26,12 @@ module.exports = {
             const token = await jwtHelper.getToken(res, payload)
             const model = await usersModel.createRememberToken(token, payload.id_users)
 
-            response(res,200,200, {
+            response(res, 200, 200, {
               token: token,
               model: model
             })
           } else {
-            response(res,200, 401, 'Account passwords wrong')
+            response(res, 200, 401, 'Account passwords wrong')
           }
         })
       }
@@ -40,7 +40,7 @@ module.exports = {
       }
     } catch (error) {
       console.log(error)
-      response(res,200, 500, error)
+      response(res, 200, 500, error)
     }
   },
 

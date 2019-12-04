@@ -44,7 +44,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_skill',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.tbl_skill
@@ -66,7 +66,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAll_skill',
-          text: `SELECT * FROM hiringus.db.tbl_skill`
+          text: 'SELECT * FROM hiringus.db.tbl_skill'
         }
         query(prepare, resolve, reject)
       }
@@ -105,7 +105,6 @@ module.exports = {
     })
   },
 
-
   readAllSkillEngineer: (req) => {
     return new Promise((resolve, reject) => {
       if (req.query.fn) {
@@ -117,7 +116,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_skill_engineer
@@ -139,7 +138,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllSkillEngineer_skill',
-          text: `SELECT * FROM hiringus.db.vw_skill_engineer`
+          text: 'SELECT * FROM hiringus.db.vw_skill_engineer'
         }
         query(prepare, resolve, reject)
       }
@@ -149,7 +148,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'readByIdSkillEngineer_skill',
-        text: `SELECT * FROM hiringus.db.vw_skill_engineer WHERE id_skill_engineer = $1 LIMIT 1`,
+        text: 'SELECT * FROM hiringus.db.vw_skill_engineer WHERE id_skill_engineer = $1 LIMIT 1',
         values: [
           id
         ]
@@ -199,14 +198,13 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'deleteSkillEngineer_skill',
-        text: `DELETE FROM hiringus.db.tbl_skill_engineer WHERE id_skill_engineer = $1`,
+        text: 'DELETE FROM hiringus.db.tbl_skill_engineer WHERE id_skill_engineer = $1',
         values: [
           req.params.id_skill_engineer
         ]
       }
       query(prepare, resolve, reject)
     })
-  },
-  
+  }
 
 }

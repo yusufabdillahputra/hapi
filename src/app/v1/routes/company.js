@@ -15,7 +15,7 @@ const {
 Router
   .get('/', verifyToken, readAll)
   .get('/:id_company', verifyToken, readById)
-  .post(`/`, verifyToken, createData)
+  .post('/', verifyToken, createData)
   .put('/id/:id_company', verifyToken, updateById)
   .put('/verify/:id_company', verifyToken, verifyById)
   .put('/unverify/:id_company', verifyToken, unverifyById)

@@ -11,7 +11,7 @@ module.exports = {
       const prepare = {
         name: 'readRememberToken_users',
         text: `SELECT remember_token FROM hiringus.db.tbl_users WHERE ${primaryKey} = $1`,
-        values : [
+        values: [
           id
         ]
       }
@@ -135,7 +135,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.tbl_users
@@ -175,7 +175,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_root
@@ -196,7 +196,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllRoot_users',
-          text: `SELECT * FROM hiringus.db.vw_root`
+          text: 'SELECT * FROM hiringus.db.vw_root'
         }
         query(prepare, resolve, reject)
       }
@@ -213,7 +213,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_engineer
@@ -231,11 +231,10 @@ module.exports = {
           ]
         }
         query(prepare, resolve, reject)
-      }
-      else {
+      } else {
         const prepare = {
           name: 'readAllEngineer_users',
-          text: `SELECT * FROM hiringus.db.tbl_engineer`
+          text: 'SELECT * FROM hiringus.db.tbl_engineer'
         }
         query(prepare, resolve, reject)
       }
@@ -252,7 +251,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_partner
@@ -270,11 +269,10 @@ module.exports = {
           ]
         }
         query(prepare, resolve, reject)
-      }
-      else {
+      } else {
         const prepare = {
           name: 'readAllPartner_users',
-          text: `SELECT * FROM hiringus.db.vw_partner`
+          text: 'SELECT * FROM hiringus.db.vw_partner'
         }
         query(prepare, resolve, reject)
       }
@@ -408,7 +406,7 @@ module.exports = {
           req.body.nation_engineer || null,
           req.body.updated_by,
           dateTimeNow(),
-          req.params[primaryKey],
+          req.params[primaryKey]
         ]
       }
       query(prepare, resolve, reject)
@@ -458,7 +456,7 @@ module.exports = {
           req.body.nation_partner || null,
           req.body.updated_by,
           dateTimeNow(),
-          req.params[primaryKey],
+          req.params[primaryKey]
         ]
       }
       query(prepare, resolve, reject)

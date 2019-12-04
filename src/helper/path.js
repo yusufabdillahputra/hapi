@@ -9,6 +9,6 @@ module.exports = {
     return dirImage(folder)
   },
   storagePath: (folder, fileName) => {
-    return process.env.BASE_URL+folder+'/'+fileName
+    return process.env.BASE_URL + folder + '/' + fileName
   }
 }

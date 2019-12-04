@@ -7,8 +7,8 @@ const {
 } = require('../controllers/auth')
 
 Router
-  .post(`/login`, signIn)
-  .post(`/register`, signUp)
-  .post(`/logout`, signOut)
+  .post('/login', signIn)
+  .post('/register', signUp)
+  .post('/logout', signOut)
 
 module.exports = Router

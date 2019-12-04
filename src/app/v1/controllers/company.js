@@ -60,7 +60,7 @@ module.exports = {
       await module.exports.replaceFileIfExist(req, res)
 
       const storage = multer.diskStorage({
-        destination: `./storage/image/company/`,
+        destination: './storage/image/company/',
         filename: (req, file, cb) => {
           cb(null, randomString(10) + '.' + file.mimetype.split('/')[1])
         }

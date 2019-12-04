@@ -79,7 +79,7 @@ module.exports = {
       await module.exports.replaceFileIfExist(req, res, 'root', 'photo_root')
 
       const storage = multer.diskStorage({
-        destination: `./storage/image/root/`,
+        destination: './storage/image/root/',
         filename: (req, file, cb) => {
           cb(null, randomString(10) + '.' + file.mimetype.split('/')[1])
         }
@@ -115,7 +115,7 @@ module.exports = {
       await module.exports.replaceFileIfExist(req, res, 'engineer', 'photo_engineer')
 
       const storage = multer.diskStorage({
-        destination: `./storage/image/engineer/`,
+        destination: './storage/image/engineer/',
         filename: (req, file, cb) => {
           cb(null, randomString(10) + '.' + file.mimetype.split('/')[1])
         }
@@ -150,7 +150,7 @@ module.exports = {
       await module.exports.replaceFileIfExist(req, res, 'partner', 'photo_partner')
 
       const storage = multer.diskStorage({
-        destination: `./storage/image/partner/`,
+        destination: './storage/image/partner/',
         filename: (req, file, cb) => {
           cb(null, randomString(10) + '.' + file.mimetype.split('/')[1])
         }

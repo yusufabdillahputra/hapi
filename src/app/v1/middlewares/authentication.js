@@ -14,20 +14,20 @@ module.exports = {
         const rememberToken = fetchToken.rows[0].remember_token
         if (rememberToken !== null) {
           if (rememberToken !== token) {
-            response(res, 200, 406,  'Your token is not acceptable')
+            response(res, 200, 406, 'Your token is not acceptable')
           } if (rememberToken === token) {
             await jwtHelper.verifyToken(req, res, next)
           }
         } else {
-          response(res, 200,401, 'Your token is not authorized')
+          response(res, 200, 401, 'Your token is not authorized')
         }
       } else if (decode === null) {
-        response(res, 200,401, {
+        response(res, 200, 401, {
           message: 'Your token is wrong, please login or register'
         })
       }
     } else {
-      response(res, 200,401, 'Your token is empty, please login or register')
+      response(res, 200, 401, 'Your token is empty, please login or register')
     }
   },
 

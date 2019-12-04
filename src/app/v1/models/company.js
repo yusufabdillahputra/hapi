@@ -44,7 +44,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.tbl_company
@@ -66,7 +66,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAll_company',
-          text: `SELECT * FROM hiringus.db.tbl_company`
+          text: 'SELECT * FROM hiringus.db.tbl_company'
         }
         query(prepare, resolve, reject)
       }

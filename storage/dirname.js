@@ -1,5 +1,5 @@
 module.exports = {
   dirImage: (folder) => {
-    return __dirname+`\\image\\${folder}\\`
+    return __dirname + `\\image\\${folder}\\`
   }
 }

@@ -9,7 +9,7 @@ module.exports = {
     const minutes = dateNow.getMinutes()
     const seconds = dateNow.getSeconds()
 
-    return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date} ${hours}:${minutes}:${seconds}`
+    return `${year}${separator}${month < 10 ? `0${month}` : `${month}`}${separator}${date} ${hours}:${minutes}:${seconds}`
   }
 
 }

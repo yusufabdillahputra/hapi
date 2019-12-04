@@ -45,7 +45,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.tbl_project
@@ -67,7 +67,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAll_project',
-          text: `SELECT * FROM hiringus.db.tbl_project`
+          text: 'SELECT * FROM hiringus.db.tbl_project'
         }
         query(prepare, resolve, reject)
       }
@@ -112,7 +112,6 @@ module.exports = {
     })
   },
 
-
   readAllProjectEngineer: (req) => {
     return new Promise((resolve, reject) => {
       if (req.query.fn) {
@@ -124,7 +123,7 @@ module.exports = {
         }
         const property = {
           fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC',
+          sort: req.query.sort || 'ASC'
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_project_engineer
@@ -146,7 +145,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllProjectEngineer_project',
-          text: `SELECT * FROM hiringus.db.vw_project_engineer`
+          text: 'SELECT * FROM hiringus.db.vw_project_engineer'
         }
         query(prepare, resolve, reject)
       }
@@ -156,7 +155,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'readByIdProjectEngineer_project',
-        text: `SELECT * FROM hiringus.db.vw_project_engineer WHERE id_project_engineer = $1 LIMIT 1`,
+        text: 'SELECT * FROM hiringus.db.vw_project_engineer WHERE id_project_engineer = $1 LIMIT 1',
         values: [
           id
         ]
@@ -205,14 +204,13 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'deleteProjectEngineer_project',
-        text: `DELETE FROM hiringus.db.tbl_project_engineer WHERE id_project_engineer = $1`,
+        text: 'DELETE FROM hiringus.db.tbl_project_engineer WHERE id_project_engineer = $1',
         values: [
           req.params.id_project_engineer
         ]
       }
       query(prepare, resolve, reject)
     })
-  },
-  
+  }
 
 }
