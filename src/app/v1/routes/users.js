@@ -4,6 +4,7 @@ const { verifyToken } = require('../middlewares/authentication')
 const {
   createData,
   readAll,
+  readById,
   readAllRoot,
   readAllEngineer,
   readAllPartner,
@@ -19,6 +20,7 @@ const {
 
 Router
   .get('/', verifyToken, readAll)
+  .get('/id/:id_users', verifyToken, readById)
   .get('/root', verifyToken, readAllRoot)
   .get('/engineer', readAllEngineer)
   .get('/partner', verifyToken, readAllPartner)

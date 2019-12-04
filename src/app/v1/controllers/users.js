@@ -26,12 +26,22 @@ module.exports = {
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)
-      response(res, 500, 500, error)
+      response(res, 200, 406, error)
     }
   },
   readAll: async (req, res) => {
     try {
       const payload = await usersModel.readAll(req)
+      response(res, 200, 200, payload)
+    } catch (error) {
+      console.log(error)
+      response(res, 500, 500, error)
+    }
+  },
+  readById: async (req, res) => {
+    try {
+      const roleUsers = await usersModel.readRole(req.params.id_users)
+      const payload = await usersModel.readById(roleUsers.rows[0].id_users, roleUsers.rows[0].role_users)
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)

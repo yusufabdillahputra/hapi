@@ -12,7 +12,7 @@ module.exports = {
   },
 
   verifyToken: async (req, res, next) => {
-    const token = req.headers.TOKEN
+    const token = req.headers.jwt
     await JWT.verify(token, JWT_SECRET_KEY, (error) => {
       if (error && error.name === 'TokenExpiredError') response(res, 200, 401, error)
       if (error && error.name === 'JsonWebTokenError') response(res, 200, 401, error)

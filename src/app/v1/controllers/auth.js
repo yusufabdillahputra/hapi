@@ -12,7 +12,7 @@ module.exports = {
   signIn: async (req, res) => {
     try {
       const account = await usersModel.readByLogin(req)
-      const countAccount = Object.keys(account).length
+      const countAccount = account.rowCount
       if (countAccount > 0) {
         bcrypt.compare(req.body.password_users, account.rows[0].password_users, async (error, result) => {
           if (error) response(res, 200, 402, error)
@@ -36,7 +36,9 @@ module.exports = {
         })
       }
       if (countAccount === 0 || countAccount === null) {
-        response(res, 200, 401, 'Account not register yet')
+        response(res, 200, 401, {
+          message: 'Account not register yet'
+        })
       }
     } catch (error) {
       console.log(error)
