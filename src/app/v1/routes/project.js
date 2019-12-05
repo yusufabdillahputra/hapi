@@ -9,6 +9,7 @@ const {
   deleteById,
   readAllProjectEngineer,
   readByIdProjectEngineer,
+  readByIdUsersProjectEngineer,
   createProjectEngineer,
   updateByIdProjectEngineer,
   deleteProjectEngineer
@@ -22,6 +23,7 @@ Router
   .delete('/id/:id_project', verifyToken, deleteById)
   .get('/engineer', readAllProjectEngineer)
   .get('/engineer/id/:id_project_engineer', readByIdProjectEngineer)
+  .get('/engineer/users/:id_users', readByIdUsersProjectEngineer)
   .post('/engineer', verifyToken, createProjectEngineer)
   .put('/engineer/id/:id_project_engineer', verifyToken, updateByIdProjectEngineer)
   .delete('/engineer/id/:id_project_engineer', verifyToken, deleteProjectEngineer)

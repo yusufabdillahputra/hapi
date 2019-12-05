@@ -66,6 +66,15 @@ module.exports = {
       response(res, 500, 500, error)
     }
   },
+  readByIdUsersProjectEngineer: async (req, res) => {
+    try {
+      const payload = await projectModel.readByIdUsersProjectEngineer(req.params.id_users)
+      response(res, 200, 200, payload)
+    } catch (error) {
+      console.log(error)
+      response(res, 500, 500, error)
+    }
+  },
   readAllProjectEngineer: async (req, res) => {
     try {
       const payload = await projectModel.readAllProjectEngineer(req)

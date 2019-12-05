@@ -7,6 +7,7 @@ const {
   readById,
   readAllRoot,
   readAllEngineer,
+  readAllProjectSkillEngineer,
   readAllPartner,
   updateById,
   updateByIdRoot,
@@ -23,6 +24,7 @@ Router
   .get('/id/:id_users', verifyToken, readById)
   .get('/root', verifyToken, readAllRoot)
   .get('/engineer', readAllEngineer)
+  .get('/merge/engineer', readAllProjectSkillEngineer)
   .get('/partner', verifyToken, readAllPartner)
   .post('/', createData)
   .put('/id/:id_users', verifyToken, updateById)

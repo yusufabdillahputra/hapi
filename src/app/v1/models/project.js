@@ -163,6 +163,18 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
+  readByIdUsersProjectEngineer: (id) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'readByIdUsersProjectEngineer_project',
+        text: 'SELECT id_project_engineer, id_users, id_engineer, name_project, status_project_engineer,deadline_project, fee_project, description_project FROM hiringus.db.vw_project_engineer WHERE id_users = $1',
+        values: [
+          id
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
   createProjectEngineer: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {

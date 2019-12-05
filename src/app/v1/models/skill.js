@@ -156,6 +156,18 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
+  readByIdUsersSkillEngineer: (id) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'readByIdUsersSkillEngineer_skill',
+        text: 'SELECT id_skill_engineer, id_skill, id_users, name_skill, level_skill_engineer FROM hiringus.db.vw_skill_engineer WHERE id_users = $1',
+        values: [
+          id
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
   createSkillEngineer: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {

@@ -83,6 +83,15 @@ module.exports = {
       response(res, 500, 500, error)
     }
   },
+  readByIdUsersSkillEngineer: async (req, res) => {
+    try {
+      const payload = await skillModel.readByIdUsersSkillEngineer(req.params.id_users)
+      response(res, 200, 200, payload)
+    } catch (error) {
+      console.log(error)
+      response(res, 500, 500, error)
+    }
+  },
   createSkillEngineer: async (req, res) => {
     try {
       const payload = await skillModel.createSkillEngineer(req)

@@ -234,7 +234,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllEngineer_users',
-          text: 'SELECT * FROM hiringus.db.tbl_engineer'
+          text: 'SELECT * FROM hiringus.db.vw_engineer'
         }
         query(prepare, resolve, reject)
       }

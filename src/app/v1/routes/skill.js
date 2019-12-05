@@ -9,6 +9,7 @@ const {
   deleteById,
   readAllSkillEngineer,
   readByIdSkillEngineer,
+  readByIdUsersSkillEngineer,
   createSkillEngineer,
   updateByIdSkillEngineer,
   deleteSkillEngineer
@@ -22,6 +23,7 @@ Router
   .delete('/id/:id_skill', verifyToken, deleteById)
   .get('/engineer', readAllSkillEngineer)
   .get('/engineer/id/:id_skill_engineer', readByIdSkillEngineer)
+  .get('/engineer/users/:id_users', readByIdUsersSkillEngineer)
   .post('/engineer', verifyToken, createSkillEngineer)
   .put('/engineer/id/:id_skill_engineer', verifyToken, updateByIdSkillEngineer)
   .delete('/engineer/id/:id_skill_engineer', verifyToken, deleteSkillEngineer)

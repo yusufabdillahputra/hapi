@@ -2,8 +2,11 @@ const { response } = require('../../../helper/response')
 const { dirStorageImage } = require('../../../helper/path')
 const { randomString } = require('../../../helper/generator')
 const multer = require('multer')
+const async = require('async')
 const fs = require('fs')
 const usersModel = require('../models/users')
+const skillModel = require('../models/skill')
+const projectModel = require('../models/project')
 
 module.exports = {
 
@@ -61,6 +64,26 @@ module.exports = {
     try {
       const payload = await usersModel.readAllEngineer(req)
       response(res, 200, 200, payload)
+    } catch (error) {
+      console.log(error)
+      response(res, 500, 500, error)
+    }
+  },
+  readAllProjectSkillEngineer: async (req, res) => {
+    try {
+      const engineers = await usersModel.readAllEngineer(req)
+      const mergeResult = []
+      await async.eachSeries(engineers.rows, async (engineer) => {
+        const id_users = engineer.id_users
+        const projects = await projectModel.readByIdUsersProjectEngineer(id_users)
+        const skills = await skillModel.readByIdUsersSkillEngineer(id_users)
+        mergeResult.push({
+          engineer: engineer,
+          projects: projects.rows,
+          skills : skills.rows
+        })
+      })
+      response(res, 200, 200, mergeResult)
     } catch (error) {
       console.log(error)
       response(res, 500, 500, error)
