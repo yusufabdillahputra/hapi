@@ -104,12 +104,12 @@ module.exports = {
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)
-      response(res, 500, 500, error)
+      response(res, 200, 500, error)
     }
   },
   updatePhotoRoot: async (req, res) => {
     try {
-      await module.exports.replaceFileIfExist(req, res, 'root', 'photo_root')
+      await module.exports.replaceFileIfExist(req, res, 'root', 'photo_users')
 
       const storage = multer.diskStorage({
         destination: './storage/image/root/',
@@ -117,7 +117,7 @@ module.exports = {
           cb(null, randomString(10) + '.' + file.mimetype.split('/')[1])
         }
       })
-      const upload = multer({ storage: storage }).single('photo_root')
+      const upload = multer({ storage: storage }).single('photo_users')
       upload(req, res, async error => {
         if (error instanceof multer.MulterError) {
           response(res, 200, 500, error)
@@ -145,7 +145,7 @@ module.exports = {
   },
   updatePhotoEngineer: async (req, res) => {
     try {
-      await module.exports.replaceFileIfExist(req, res, 'engineer', 'photo_engineer')
+      await module.exports.replaceFileIfExist(req, res, 'engineer', 'photo_users')
 
       const storage = multer.diskStorage({
         destination: './storage/image/engineer/',
@@ -153,7 +153,7 @@ module.exports = {
           cb(null, randomString(10) + '.' + file.mimetype.split('/')[1])
         }
       })
-      const upload = multer({ storage: storage }).single('photo_engineer')
+      const upload = multer({ storage: storage }).single('photo_users')
       upload(req, res, async error => {
         if (error instanceof multer.MulterError) {
           response(res, 200, 500, error)
@@ -180,7 +180,7 @@ module.exports = {
   },
   updatePhotoPartner: async (req, res) => {
     try {
-      await module.exports.replaceFileIfExist(req, res, 'partner', 'photo_partner')
+      await module.exports.replaceFileIfExist(req, res, 'partner', 'photo_users')
 
       const storage = multer.diskStorage({
         destination: './storage/image/partner/',
@@ -188,7 +188,7 @@ module.exports = {
           cb(null, randomString(10) + '.' + file.mimetype.split('/')[1])
         }
       })
-      const upload = multer({ storage: storage }).single('photo_partner')
+      const upload = multer({ storage: storage }).single('photo_users')
       upload(req, res, async error => {
         if (error instanceof multer.MulterError) {
           response(res, 200, 500, error)
@@ -220,7 +220,7 @@ module.exports = {
       const readById = await usersModel.readById(roleUsers.rows[0].id_users, roleUsers.rows[0].role_users)
       if (roleUsers.rows[0].role_users === 1) {
         const pathStorage = 'root'
-        const getFilesNameToUnlink = readById.rows[0].photo_root
+        const getFilesNameToUnlink = readById.rows[0].photo_users
         getFilesNameToUnlink !== defaultPhoto && fs.existsSync(dirStorageImage(pathStorage) + getFilesNameToUnlink)
           ? fs.unlinkSync(dirStorageImage(pathStorage) + getFilesNameToUnlink)
           : null
@@ -233,7 +233,7 @@ module.exports = {
       }
       if (roleUsers.rows[0].role_users === 2) {
         const pathStorage = 'engineer'
-        const getFilesNameToUnlink = readById.rows[0].photo_engineer
+        const getFilesNameToUnlink = readById.rows[0].photo_users
         if (getFilesNameToUnlink !== defaultPhoto && fs.existsSync(dirStorageImage(pathStorage) + getFilesNameToUnlink)) {
           return fs.unlinkSync(dirStorageImage(pathStorage) + getFilesNameToUnlink)
         }
@@ -249,7 +249,7 @@ module.exports = {
       }
       if (roleUsers.rows[0].role_users === 3) {
         const pathStorage = 'partner'
-        const getFilesNameToUnlink = readById.rows[0].photo_partner
+        const getFilesNameToUnlink = readById.rows[0].photo_users
         getFilesNameToUnlink !== defaultPhoto && fs.existsSync(dirStorageImage(pathStorage) + getFilesNameToUnlink)
           ? fs.unlinkSync(dirStorageImage(pathStorage) + getFilesNameToUnlink)
           : null

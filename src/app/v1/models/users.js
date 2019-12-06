@@ -139,7 +139,7 @@ module.exports = {
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.tbl_users
-                             WHERE %(fieldname)s LIKE $1
+                             WHERE %(fieldname)s ILIKE $1
                              ORDER BY $2 %(sort)s
                                  LIMIT $3
                                  OFFSET $4`, property)
@@ -179,7 +179,7 @@ module.exports = {
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_root
-                             WHERE %(fieldname)s LIKE $1
+                             WHERE %(fieldname)s ILIKE $1
                              ORDER BY $2 %(sort)s 
                              LIMIT $3 OFFSET $4`, property)
         const prepare = {
@@ -217,7 +217,7 @@ module.exports = {
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_engineer
-                             WHERE %(fieldname)s LIKE $1
+                             WHERE %(fieldname)s ILIKE $1
                              ORDER BY $2 %(sort)s 
                              LIMIT $3 OFFSET $4`, property)
         const prepare = {
@@ -255,7 +255,7 @@ module.exports = {
         }
         const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_partner
-                             WHERE %(fieldname)s LIKE $1
+                             WHERE %(fieldname)s ILIKE $1
                              ORDER BY $2 %(sort)s 
                              LIMIT $3 OFFSET $4`, property)
         const prepare = {
@@ -309,7 +309,7 @@ module.exports = {
       const prepare = {
         name: 'updatePhotoRoot_users',
         text: `UPDATE hiringus.db.tbl_root 
-                SET photo_root = $1, 
+                SET photo_users = $1, 
                     updated_by = $2, 
                     updated_at = $3 
                 WHERE ${primaryKey} = $4
@@ -330,7 +330,7 @@ module.exports = {
         name: 'updateByIdRoot_users',
         text: `UPDATE hiringus.db.tbl_root
                 SET description_root = $1, 
-                    position_root = $2, 
+                    position_users = $2, 
                     address_root = $3, 
                     city_root = $4, 
                     province_root = $5, 
@@ -341,7 +341,7 @@ module.exports = {
                 RETURNING *`,
         values: [
           req.body.description_root || null,
-          req.body.position_root || null,
+          req.body.position_users || null,
           req.body.address_root || null,
           req.body.city_root || null,
           req.body.province_root || null,
@@ -359,7 +359,7 @@ module.exports = {
       const prepare = {
         name: 'updatePhotoEngineer_users',
         text: `UPDATE hiringus.db.tbl_engineer 
-                SET photo_engineer = $1, 
+                SET photo_users = $1, 
                     updated_by = $2, 
                     updated_at = $3 
                 WHERE ${primaryKey} = $4
@@ -380,7 +380,7 @@ module.exports = {
         name: 'updateByIdEngineer_users',
         text: `UPDATE hiringus.db.tbl_engineer 
                 SET description_engineer = $1,
-                    focus_engineer = $2,
+                    position_users = $2,
                     dbo_engineer = $3,
                     github_engineer = $4,
                     linkedin_engineer = $5,
@@ -395,7 +395,7 @@ module.exports = {
                 RETURNING *`,
         values: [
           req.body.description_engineer || null,
-          req.body.focus_engineer || null,
+          req.body.position_users || null,
           req.body.dbo_engineer || null,
           req.body.github_engineer || null,
           req.body.linkedin_engineer || null,
@@ -417,7 +417,7 @@ module.exports = {
       const prepare = {
         name: 'updatePhotoPartner_users',
         text: `UPDATE hiringus.db.tbl_partner 
-                SET photo_partner = $1, 
+                SET photo_users = $1, 
                     updated_by = $2, 
                     updated_at = $3 
                 WHERE ${primaryKey} = $4
@@ -438,7 +438,7 @@ module.exports = {
         name: 'updateByIdPartner_users',
         text: `UPDATE hiringus.db.tbl_partner 
                 SET description_partner = $1, 
-                    position_partner = $2, 
+                    position_users = $2, 
                     address_partner = $3, 
                     province_partner = $4, 
                     city_partner = $5, 
@@ -449,7 +449,7 @@ module.exports = {
                 RETURNING *`,
         values: [
           req.body.description_partner || null,
-          req.body.position_partner || null,
+          req.body.position_users || null,
           req.body.address_partner || null,
           req.body.province_partner || null,
           req.body.city_partner || null,
