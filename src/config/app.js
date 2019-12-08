@@ -33,7 +33,7 @@ app.use(
     reportUri: '/report-xss-violation'
   }),
   express.static('storage/image'),
-  cors(corsOptionsDelegate),
+  cors(),
   routes
 )
 
