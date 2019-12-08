@@ -29,6 +29,15 @@ module.exports = {
       response(res, 500, 500, error)
     }
   },
+  readByCreatedBy: async (req, res) => {
+    try {
+      const payload = await projectModel.readByCreatedBy(req.params.created_by)
+      response(res, 200, 200, payload)
+    } catch (error) {
+      console.log(error)
+      response(res, 500, 500, error)
+    }
+  },
   updateById: async (req, res) => {
     try {
       const payload = await projectModel.updateById(req)
@@ -60,6 +69,15 @@ module.exports = {
   readByIdProjectEngineer: async (req, res) => {
     try {
       const payload = await projectModel.readByIdProjectEngineer(req.params.id_project_engineer)
+      response(res, 200, 200, payload)
+    } catch (error) {
+      console.log(error)
+      response(res, 500, 500, error)
+    }
+  },
+  readByIdProject: async (req, res) => {
+    try {
+      const payload = await projectModel.readByIdProject(req.params.id_project)
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)

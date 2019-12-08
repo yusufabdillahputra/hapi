@@ -34,6 +34,18 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
+  readByCreatedBy: (createdBy) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'readByCreatedBy_project',
+        text: `SELECT * FROM hiringus.db.tbl_project WHERE created_by = $1`,
+        values: [
+          createdBy
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
   readAll: (req) => {
     return new Promise((resolve, reject) => {
       if (req.query.fn) {
@@ -111,7 +123,6 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
-
   readAllProjectEngineer: (req) => {
     return new Promise((resolve, reject) => {
       if (req.query.fn) {
@@ -156,6 +167,18 @@ module.exports = {
       const prepare = {
         name: 'readByIdProjectEngineer_project',
         text: 'SELECT * FROM hiringus.db.vw_project_engineer WHERE id_project_engineer = $1 LIMIT 1',
+        values: [
+          id
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
+  readByIdProject: (id) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'readByIdProject_project',
+        text: 'SELECT * FROM hiringus.db.vw_project_engineer WHERE id_project = $1',
         values: [
           id
         ]
