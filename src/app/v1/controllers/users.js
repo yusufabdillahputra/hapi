@@ -213,6 +213,15 @@ module.exports = {
       response(res, 500, 500, error)
     }
   },
+  setCompanyPartner: async (req, res) => {
+    try {
+      const payload = await usersModel.setCompanyPartner(req)
+      response(res, 200, 200, payload)
+    } catch (error) {
+      console.log(error)
+      response(res, 500, 500, error)
+    }
+  },
   deleteById: async (req, res) => {
     try {
       const defaultPhoto = 'default.png'

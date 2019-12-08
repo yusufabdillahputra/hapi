@@ -15,6 +15,7 @@ const {
   updateByIdEngineer,
   updatePhotoEngineer,
   updateByIdPartner,
+  setCompanyPartner,
   updatePhotoPartner,
   deleteById
 } = require('../controllers/users')
@@ -33,6 +34,7 @@ Router
   .put('/engineer/id/:id_users', verifyToken, updateByIdEngineer)
   .put('/engineer/photo/:id_users', verifyToken, updatePhotoEngineer)
   .put('/partner/id/:id_users', verifyToken, updateByIdPartner)
+  .put('/partner/company/:id_users', verifyToken, setCompanyPartner)
   .put('/partner/photo/:id_users', verifyToken, updatePhotoPartner)
   .delete('/id/:id_users', verifyToken, deleteById)
 

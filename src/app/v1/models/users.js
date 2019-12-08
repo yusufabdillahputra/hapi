@@ -462,6 +462,26 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
+  setCompanyPartner: (req) => {
+    return new Promise((resolve, reject) => {
+      const prepare = {
+        name: 'setCompanyPartner_users',
+        text: `UPDATE hiringus.db.tbl_partner 
+                SET id_company = $1,
+                    updated_by = $2, 
+                    updated_at = $3 
+                WHERE ${primaryKey} = $4
+                RETURNING *`,
+        values: [
+          req.body.id_company || null,
+          req.body.updated_by,
+          dateTimeNow(),
+          req.params[primaryKey]
+        ]
+      }
+      query(prepare, resolve, reject)
+    })
+  },
   deleteById: (req) => {
     return new Promise((resolve, reject) => {
       const prepare = {
