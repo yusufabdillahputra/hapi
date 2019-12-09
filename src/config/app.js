@@ -31,10 +31,10 @@ app.use(
     setOnOldIE: true,
     reportUri: '/report-xss-violation'
   }),
-  express.static('storage/image'),
   cors({
     origin: '*'
   }),
+  express.static('storage/image'),
   routes
 )
 
