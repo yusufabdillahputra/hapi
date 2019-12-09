@@ -11,7 +11,7 @@ Router
   .use('/', home)
   .use('/auth', auth)
   .use('/users', users)
-  .use('/company', company)
+  .use('/corp', company)
   .use('/project', project)
   .use('/skill', skill)
 

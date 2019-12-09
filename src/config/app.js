@@ -9,7 +9,7 @@ const routes = require(`../app/v${API_VERSION}/routes`)
 const cors = require('cors')
 
 const whitelist = [
-  'http://54.144.101.230'
+  'http://54.144.101.230:80'
 ]
 const corsOptionsDelegate = function (req, callback) {
   let corsOptions;
@@ -32,7 +32,9 @@ app.use(
     reportUri: '/report-xss-violation'
   }),
   express.static('storage/image'),
-  cors(corsOptionsDelegate),
+  cors({
+    origin: '*'
+  }),
   routes
 )
 
