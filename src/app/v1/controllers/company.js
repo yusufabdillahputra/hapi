@@ -7,7 +7,7 @@ const companyModel = require('../models/company')
 
 module.exports = {
 
-  replaceFileIfExist: async (req, res, pathStorage = 'company', photoField = 'photo_company', defaultPhoto = 'default.png') => {
+  replaceFileIfExist: async (req, res, pathStorage = 'corp', photoField = 'photo_company', defaultPhoto = 'default.png') => {
     try {
       const readById = await companyModel.readById(req.params.id_company)
       const getFilesNameToUnlink = readById.rows[0][photoField]
