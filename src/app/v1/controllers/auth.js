@@ -38,7 +38,8 @@ module.exports = {
       if (countAccount === 0 || countAccount === null) {
         response(res, 200, 401, {
           message: 'Account not register yet',
-          account: account
+          account: account,
+          body: req.body
         })
       }
     } catch (error) {
