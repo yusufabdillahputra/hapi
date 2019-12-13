@@ -14,7 +14,7 @@ module.exports = {
       const account = await usersModel.readByLogin(req)
       const countAccount = account.rowCount
       if (countAccount > 0) {
-        bcrypt.compare(req.body.password_users, account.rows[0].password_users, async (error, result) => {
+        await bcrypt.compare(req.body.password_users, account.rows[0].password_users, async (error, result) => {
           if (error) response(res, 200, 402, error)
           if (result) {
             const payload = {
