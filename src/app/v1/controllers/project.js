@@ -31,7 +31,7 @@ module.exports = {
   },
   readByCreatedBy: async (req, res) => {
     try {
-      const payload = await projectModel.readByCreatedBy(req.params.created_by)
+      const payload = await projectModel.readByCreatedBy(req)
       response(res, 200, 200, payload)
     } catch (error) {
       console.log(error)

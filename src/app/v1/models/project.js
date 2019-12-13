@@ -34,16 +34,48 @@ module.exports = {
       query(prepare, resolve, reject)
     })
   },
-  readByCreatedBy: (createdBy) => {
+  readByCreatedBy: (req) => {
     return new Promise((resolve, reject) => {
-      const prepare = {
-        name: 'readByCreatedBy_project',
-        text: `SELECT * FROM hiringus.db.tbl_project WHERE created_by = $1`,
-        values: [
-          createdBy
-        ]
+      if (req.query.fn) {
+        const value = {
+          fieldvalue: '%' + req.query.fv + '%' || '% %',
+          orderBy: req.query.order || primaryKey,
+          limit: req.query.limit || 60,
+          offset: req.query.offset || 0
+        }
+        const property = {
+          fieldname: req.query.fn || 'name_users',
+          sort: req.query.sort || 'ASC'
+        }
+        const sql = sprintf(`SELECT *
+                             FROM hiringus.db.tbl_project
+                             WHERE created_by = $1
+                             AND %(fieldname)s LIKE $2
+                             ORDER BY $3 %(sort)s
+                                 LIMIT $4
+                                 OFFSET $5`, property)
+        const prepare = {
+          name: 'readByCreatedByQuery_project',
+          text: sql,
+          values: [
+            req.params.created_by,
+            value.fieldvalue,
+            value.orderBy,
+            value.limit,
+            value.offset
+          ]
+        }
+        query(prepare, resolve, reject)
+      } else {
+        const prepare = {
+          name: 'readByCreatedBy_project',
+          text: `SELECT * FROM hiringus.db.tbl_project WHERE created_by = $1`,
+          values: [
+            req.params.created_by
+          ]
+        }
+        query(prepare, resolve, reject)
       }
-      query(prepare, resolve, reject)
     })
   },
   readAll: (req) => {

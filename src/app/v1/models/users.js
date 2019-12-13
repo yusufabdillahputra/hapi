@@ -205,32 +205,43 @@ module.exports = {
   readAllEngineer: (req) => {
     return new Promise((resolve, reject) => {
       if (req.query.fn) {
-        const value = {
-          fieldvalue: '%' + req.query.fv + '%' || '% %',
-          orderBy: req.query.order || primaryKey,
-          limit: req.query.limit || 60,
-          offset: req.query.offset || 0
-        }
-        const property = {
-          fieldname: req.query.fn || 'name_users',
-          sort: req.query.sort || 'ASC'
-        }
-        const sql = sprintf(`SELECT *
+        if (req.query.fn === 'id_users') {
+          const prepare = {
+            name: 'readAllEngineerId_users',
+            text: 'SELECT * FROM hiringus.db.vw_engineer WHERE id_users = $1 LIMIT 1',
+            values: [
+              req.query.fv
+            ]
+          }
+          query(prepare, resolve, reject)
+        } else {
+          const value = {
+            fieldvalue: '%' + req.query.fv + '%' || '% %',
+            orderBy: req.query.order || primaryKey,
+            limit: req.query.limit || 60,
+            offset: req.query.offset || 0
+          }
+          const property = {
+            fieldname: req.query.fn || 'name_users',
+            sort: req.query.sort || 'ASC'
+          }
+          const sql = sprintf(`SELECT *
                              FROM hiringus.db.vw_engineer
                              WHERE %(fieldname)s ILIKE $1
                              ORDER BY $2 %(sort)s 
                              LIMIT $3 OFFSET $4`, property)
-        const prepare = {
-          name: 'readAllEngineerByQuery_users',
-          text: sql,
-          values: [
-            value.fieldvalue,
-            value.orderBy,
-            value.limit,
-            value.offset
-          ]
+          const prepare = {
+            name: 'readAllEngineerByQuery_users',
+            text: sql,
+            values: [
+              value.fieldvalue,
+              value.orderBy,
+              value.limit,
+              value.offset
+            ]
+          }
+          query(prepare, resolve, reject)
         }
-        query(prepare, resolve, reject)
       } else {
         const prepare = {
           name: 'readAllEngineer_users',
