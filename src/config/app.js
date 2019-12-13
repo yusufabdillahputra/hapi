@@ -24,7 +24,8 @@ const corsOptionsDelegate = function (req, callback) {
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`)
 })
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(xssFilter({
   setOnOldIE: true,
   reportUri: '/report-xss-violation'
