@@ -12,6 +12,7 @@ module.exports = {
   signIn: async (req, res) => {
     try {
       const account = await usersModel.readByLogin(req)
+      console.log(account)
       const countAccount = account.rowCount
       if (countAccount > 0) {
         await bcrypt.compare(req.body.password_users, account.rows[0].password_users, async (error, result) => {
