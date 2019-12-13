@@ -57,7 +57,7 @@ module.exports = {
   },
   updatePhoto: async (req, res) => {
     try {
-      await module.exports.replaceFileIfExist(req, res)
+      await module.exports.replaceFileIfExist(req, res, 'corp')
 
       const storage = multer.diskStorage({
         destination: './storage/image/corp/',
