@@ -32,9 +32,7 @@ app.use(morgan('dev'))
 //   setOnOldIE: true,
 //   reportUri: '/report-xss-violation'
 // }))
-app.use(cors({
-  origin: false
-}))
+app.use(cors())
 app.use(express.static('storage/image'))
 app.use(routes)
 
