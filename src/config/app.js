@@ -7,6 +7,7 @@ const PORT = process.env.SERVER_PORT
 const API_VERSION = process.env.API_VERSION
 const routes = require(`../app/v${API_VERSION}/routes`)
 const cors = require('cors')
+const morgan = require('morgan')
 
 const whitelist = [
   'http://54.144.101.230:80'
@@ -26,10 +27,11 @@ app.listen(PORT, () => {
 })
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(xssFilter({
-  setOnOldIE: true,
-  reportUri: '/report-xss-violation'
-}))
+app.use(morgan('dev'))
+// app.use(xssFilter({
+//   setOnOldIE: true,
+//   reportUri: '/report-xss-violation'
+// }))
 app.use(cors({
   origin: false
 }))
