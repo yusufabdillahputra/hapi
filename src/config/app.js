@@ -28,11 +28,11 @@ app.listen(PORT, () => {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(morgan('dev'))
-// app.use(xssFilter({
-//   setOnOldIE: true,
-//   reportUri: '/report-xss-violation'
-// }))
-//app.use(cors())
+app.use(xssFilter({
+  setOnOldIE: true,
+  reportUri: '/report-xss-violation'
+}))
+app.use(cors())
 app.use(express.static('storage/image'))
 app.use(routes)
 
