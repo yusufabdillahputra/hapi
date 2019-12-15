@@ -158,7 +158,7 @@ module.exports = {
         const prepare = {
           name: 'readAll_users',
           text: `SELECT *
-                 FROM hiringus.db.tbl_users`
+                 FROM hiringus.db.tbl_users ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }
@@ -196,7 +196,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllRoot_users',
-          text: 'SELECT * FROM hiringus.db.vw_root'
+          text: `SELECT * FROM hiringus.db.vw_root ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }
@@ -245,7 +245,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllEngineer_users',
-          text: 'SELECT * FROM hiringus.db.vw_engineer'
+          text: `SELECT * FROM hiringus.db.vw_engineer ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }
@@ -283,7 +283,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllPartner_users',
-          text: 'SELECT * FROM hiringus.db.vw_partner'
+          text: `SELECT * FROM hiringus.db.vw_partner ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }

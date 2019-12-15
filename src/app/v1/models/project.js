@@ -69,7 +69,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readByCreatedBy_project',
-          text: `SELECT * FROM hiringus.db.tbl_project WHERE created_by = $1`,
+          text: `SELECT * FROM hiringus.db.tbl_project WHERE created_by = $1 ORDER BY ${primaryKey} DESC`,
           values: [
             req.params.created_by
           ]
@@ -111,7 +111,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAll_project',
-          text: 'SELECT * FROM hiringus.db.tbl_project'
+          text: `SELECT * FROM hiringus.db.tbl_project ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }
@@ -188,7 +188,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllProjectEngineer_project',
-          text: 'SELECT * FROM hiringus.db.vw_project_engineer'
+          text: `SELECT * FROM hiringus.db.vw_project_engineer ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }
@@ -222,7 +222,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'readByIdUsersProjectEngineer_project',
-        text: 'SELECT id_project_engineer, id_users, id_engineer, name_project, status_project_engineer,deadline_project, fee_project, description_project FROM hiringus.db.vw_project_engineer WHERE id_users = $1',
+        text: `SELECT id_project_engineer, id_project, id_users, id_engineer, name_project, status_project_engineer,deadline_project, fee_project, description_project FROM hiringus.db.vw_project_engineer WHERE id_users = $1  ORDER BY ${primaryKey} DESC`,
         values: [
           id
         ]

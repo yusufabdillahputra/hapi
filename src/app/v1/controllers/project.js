@@ -56,7 +56,6 @@ module.exports = {
       response(res, 500, 500, error)
     }
   },
-
   readAllProjectEngineer: async (req, res) => {
     try {
       const payload = await projectModel.readAllProjectEngineer(req)

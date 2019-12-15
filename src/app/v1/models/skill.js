@@ -66,7 +66,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAll_skill',
-          text: 'SELECT * FROM hiringus.db.tbl_skill'
+          text: `SELECT * FROM hiringus.db.tbl_skill ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }
@@ -138,7 +138,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAllSkillEngineer_skill',
-          text: 'SELECT * FROM hiringus.db.vw_skill_engineer'
+          text: `SELECT * FROM hiringus.db.vw_skill_engineer ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }
@@ -160,7 +160,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const prepare = {
         name: 'readByIdUsersSkillEngineer_skill',
-        text: 'SELECT id_skill_engineer, id_skill, id_users, name_skill, level_skill_engineer FROM hiringus.db.vw_skill_engineer WHERE id_users = $1',
+        text: `SELECT id_skill_engineer, id_skill, id_users, name_skill, level_skill_engineer FROM hiringus.db.vw_skill_engineer WHERE id_users = $1 ORDER BY ${primaryKey} DESC`,
         values: [
           id
         ]

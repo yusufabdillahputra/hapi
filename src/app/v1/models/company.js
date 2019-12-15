@@ -66,7 +66,7 @@ module.exports = {
       } else {
         const prepare = {
           name: 'readAll_company',
-          text: 'SELECT * FROM hiringus.db.tbl_company'
+          text: `SELECT * FROM hiringus.db.tbl_company ORDER BY ${primaryKey} DESC`
         }
         query(prepare, resolve, reject)
       }
